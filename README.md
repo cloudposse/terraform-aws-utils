@@ -61,8 +61,9 @@ We literally have [*hundreds of terraform modules*][terraform_modules] that are 
 ## Introduction
 
 This `terraform-aws-utils` project provides some simple utilities to use when working in AWS. At the moment, it is
-limited to providing maps from regions and availability zones to stable abbreviations for them. Use these maps
-to convert regions and avaialility zones to attributes that do not have dashes in them.
+limited to providing compact alternative codes for Regions, Availability Zones, and Local Zones that are
+guaranteed to use only digits and lower case letters: no hyphens. Conversions to and from official codes
+and alternative codes are handled via lookup maps.
 
 The `short` abbreviations are variable length (generally 4-6 characters, but length limits not guaranteed)
 and strictly algorithmically derived so that people can more easily interpret them.
@@ -70,7 +71,7 @@ The `fixed` abbreviations are always exactly 3 characters for regions and 4 char
 for availability zones and local zones, but have some exceptional cases (China, Africa, Asia-Pacific South, US GovCloud)
 that have non-obvious abbreviations.
 
-We currently support local zones but not wavelength zones. If we support wavelength zones in the future,
+We currently support Local Zones but not Wavelength Zones. If we support Wavelength Zones in the future,
 it is likely that the fixed-length abbreviations for them will be non-intuitive.
 
 The intention is that existing mappings will never change, and if new regions or zones are created that
@@ -98,7 +99,7 @@ locals {
 module "label" {
   source = "git::https://github.com/cloudposse/terraform-null-label.git?ref=master"
 
-  attributes = [local.az_map["us-east-2"]
+  attributes = [local.az_map["us-east-2"]]
 
   context = module.this.context
 }
@@ -110,7 +111,7 @@ module "label" {
 ## Examples
 
 Here is an example of using this module:
-- [`examples/complete`]() - complete example of using this module
+- [`examples/complete`](examples/complete) - complete example of using this module
 
 
 
@@ -161,7 +162,7 @@ No provider.
 
 | Name | Description |
 |------|-------------|
-| region\_az\_alt\_code\_maps | Collection of maps converting between official AWS Region, Availabiltiy Zone, and Local Zone codes and shorter unofffical codes without hyphens. Inspired for use in naming and tagging so that region or AZ code will be 1 semantic unit.<br><br>- `to_fixed` = Map of regions to 3-character codes and Availability Zones to 4-character codes without hyphens<br>- `to_short` = Map of regions and Availability Zones to compact (usually 4-6 characters) codes without hyphens<br>- `from_fixed` = Map of `fixed` codes back to full region or Availability Zone codes<br>- `from_short` = Map of `short` codes back to full region or Availability Zone codes<br>- `identity` = Identity map of full region and Availability Zone codes back to themselves |
+| region\_az\_alt\_code\_maps | Collection of maps converting between official AWS Region, Availability Zone, and Local Zone codes and shorter unofficial codes using only lower case letters and digits. Inspired for use in naming and tagging so that region or AZ code will be 1 semantic unit.<br><br>- `to_fixed` = Map of regions to 3-character codes and Availability Zones to 4-character codes<br>- `to_short` = Map of regions and Availability Zones to compact (usually 4-6 characters) codes<br>- `from_fixed` = Map of `fixed` codes back to full region or Availability Zone codes<br>- `from_short` = Map of `short` codes back to full region or Availability Zone codes<br>- `identity` = Identity map of full region and Availability Zone codes back to themselves |
 
 <!-- markdownlint-restore -->
 

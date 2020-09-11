@@ -1,14 +1,20 @@
-output "id" {
-  description = "ID of the created example"
-  value       = module.this.enabled ? module.this.id : null
+output "to_fixed" {
+  description = "Map of regions to 3-character codes and Availability Zones to 4-character codes"
+  value       = local.to_fixed
 }
 
-output "example" {
-  description = "Example output"
-  value       = module.this.enabled ? local.example : null
+output "to_short" {
+  description = "Map of regions and Availability Zones to compact (4-6 characters) codes without hyphens"
+  value       = local.to_short
 }
 
-output "random" {
-  description = "Stable random number for this example"
-  value       = module.this.enabled ? join("", random_integer.example[*].result) : null
+output "from_fixed" {
+  description = "Map of `fixed` codes to full region or Availability Zone codes"
+  value       = local.from_fixed
 }
+
+output "from_short" {
+  description = "Map of `short` codes to full region or Availability Zone codes"
+  value       = local.from_short
+}
+

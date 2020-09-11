@@ -5,7 +5,7 @@
 #
 
 # Name of this project
-name: terraform-example-module
+name: terraform-aws-utils
 
 # Logo for this project
 #logo: docs/logo.png
@@ -20,13 +20,13 @@ copyrights:
     year: "2020"
 
 # Canonical GitHub repo
-github_repo: cloudposse/terraform-example-module
+github_repo: cloudposse/terraform-aws-utils
 
 # Badges to display
 badges:
   - name: "Latest Release"
-    image: "https://img.shields.io/github/release/cloudposse/terraform-example-module.svg"
-    url: "https://github.com/cloudposse/terraform-example-module/releases/latest"
+    image: "https://img.shields.io/github/release/cloudposse/terraform-aws-utils.svg"
+    url: "https://github.com/cloudposse/terraform-aws-utils/releases/latest"
   - name: "Slack Community"
     image: "https://slack.cloudposse.com/badge.svg"
     url: "https://slack.cloudposse.com"
@@ -48,21 +48,33 @@ references:
   - name: "Terraform Module Requirements"
     description: "HashiCorp's guidance on all the requirements for publishing a module. Meeting the requirements for publishing a module is extremely easy."
     url: "https://www.terraform.io/docs/registry/modules/publish.html#requirements"
-  - name: "Terraform `random_integer` Resource"
-    description: "The resource random_integer generates random values from a given range, described by the min and max attributes of a given resource."
-    url: "https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/integer"
   - name: "Terraform Version Pinning"
     description: "The required_version setting can be used to constrain which versions of the Terraform CLI can be used with your configuration"
     url: "https://www.terraform.io/docs/configuration/terraform.html#specifying-a-required-terraform-version"
-
+  - name: "AWS Regions and Zones"
+    description: "AWS documentation on regions and zones"
+    url: "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html"
 # Short description of this project
 description: |-
-  This is `terraform-example-module` project provides all the scaffolding for a typical well-built Cloud Posse module. It's a template repository you can
-  use when creating new repositories.
+  This `terraform-aws-utils` project provides some simple utilities to use when working in AWS.
 
 # Introduction to the project
-#introduction: |-
-#  This is an introduction.
+introduction: |-
+  This `terraform-aws-utils` project provides some simple utilities to use when working in AWS. At the moment, it is
+  limited to providing maps from regions and availability zones to stable abbreviations for them. Use these maps
+  to convert regions and avaialility zones to attributes that do not have dashes in them.
+
+  The `short` abbreviations are variable length (generally 4-6 characters, but not guaranteed)
+  and strictly algorithmically derived so that people can more easily interpret them.
+  The `fixed` abbreviations are always exactly 3 characters for regions and 4 characters
+  for availability zones and local zones, but have some exceptional cases (China, Africa, Asia-Pacific South, US GovCloud)
+  that have non-obvious abbreviations.
+
+  We currently support local zones but not wavelength zones. If we support wavelength zones in the future,
+  it is likely that the fixed-length abbreviations for them will be non-intuitive.
+
+  The intention is that existing mappings will never change, and if new regions or zones are created that
+  conflict with existing ones, they will be given non-standard mappings so as not to conflict.
 
 # How to use this module. Should be an easy example to copy and paste.
 usage: |-
@@ -70,15 +82,22 @@ usage: |-
 
   ```hcl
   module "example" {
-    source = "https://github.com/cloudposse/terraform-example-module.git?ref=master"
-    example = "Hello world!"
+    source = "https://github.com/cloudposse/terraform-aws-utils.git?ref=master"
+  }
+
+  module "label" {
+    source = "git::https://github.com/cloudposse/terraform-null-label.git?ref=master"
+
+    attributes = [module.example.to_fixed["us-east-2"]
+
+    context = module.this.context
   }
   ```
 
 # Example usage
 examples: |-
   Here is an example of using this module:
-  - [`examples/complete`](https://github.com/cloudposse/terraform-example-module/) - complete example of using this module
+  - [`examples/complete`]() - complete example of using this module
 
 # How to get started quickly
 #quickstart: |-

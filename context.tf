@@ -1,3 +1,9 @@
+#####################################################################
+## Because of the static nature of this module, this file          ##
+## has been modified to indicate that the context.tf variables     ##
+## are accepted but ignored. When updating this file, please       ##
+## update the variable descriptions accordingly.                   ##
+#####################################################################
 #
 # ONLY EDIT THIS FILE IN github.com/cloudposse/terraform-null-label
 # All other instances of this file should be a copy of that one
@@ -69,49 +75,47 @@ variable "context" {
     id_length_limit     = null
   }
   description = <<-EOT
-    Single object for setting entire context at once.
-    See description of individual variables for details.
-    Leave string and numeric variables as `null` to use default value.
-    Individual variable settings (non-null) override settings in context object,
-    except for attributes, tags, and additional_tag_map, which are merged.
+    NOTE: This object and associated variables are
+    provided for compatibility with other Cloud Posse modules
+    but ARE NOT USED at present.
   EOT
 }
 
 variable "enabled" {
   type        = bool
   default     = null
-  description = "Set to false to prevent the module from creating any resources"
+  description = "(Ignored) Set to false to prevent the module from creating any resources"
 }
 
 variable "namespace" {
   type        = string
   default     = null
-  description = "Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'"
+  description = "(Ignored) Namespace, which could be your organization name or abbreviation, e.g. 'eg' or 'cp'"
 }
 
 variable "environment" {
   type        = string
   default     = null
-  description = "Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'"
+  description = "(Ignored) Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT'"
 }
 
 variable "stage" {
   type        = string
   default     = null
-  description = "Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'"
+  description = "(Ignored) Stage, e.g. 'prod', 'staging', 'dev', OR 'source', 'build', 'test', 'deploy', 'release'"
 }
 
 variable "name" {
   type        = string
   default     = null
-  description = "Solution name, e.g. 'app' or 'jenkins'"
+  description = "(Ignored) Solution name, e.g. 'app' or 'jenkins'"
 }
 
 variable "delimiter" {
   type        = string
   default     = null
   description = <<-EOT
-    Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.
+    (Ignored) Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.
     Defaults to `-` (hyphen). Set to `""` to use no delimiter at all.
   EOT
 }
@@ -119,26 +123,26 @@ variable "delimiter" {
 variable "attributes" {
   type        = list(string)
   default     = []
-  description = "Additional attributes (e.g. `1`)"
+  description = "(Ignored) Additional attributes (e.g. `1`)"
 }
 
 variable "tags" {
   type        = map(string)
   default     = {}
-  description = "Additional tags (e.g. `map('BusinessUnit','XYZ')`"
+  description = "(Ignored) Additional tags (e.g. `map('BusinessUnit','XYZ')`"
 }
 
 variable "additional_tag_map" {
   type        = map(string)
   default     = {}
-  description = "Additional tags for appending to tags_as_list_of_maps. Not added to `tags`."
+  description = "(Ignored) Additional tags for appending to tags_as_list_of_maps. Not added to `tags`."
 }
 
 variable "label_order" {
   type        = list(string)
   default     = null
   description = <<-EOT
-    The naming order of the id output and Name tag.
+    (Ignored) The naming order of the id output and Name tag.
     Defaults to ["namespace", "environment", "stage", "name", "attributes"].
     You can omit any of the 5 elements, but at least one must be present.
   EOT
@@ -148,7 +152,7 @@ variable "regex_replace_chars" {
   type        = string
   default     = null
   description = <<-EOT
-    Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.
+    (Ignored) Regex to replace chars with empty string in `namespace`, `environment`, `stage` and `name`.
     If not set, `"/[^a-zA-Z0-9-]/"` is used to remove all characters other than hyphens, letters and digits.
   EOT
 }
@@ -157,7 +161,7 @@ variable "id_length_limit" {
   type        = number
   default     = null
   description = <<-EOT
-    Limit `id` to this many characters.
+    (Ignored) Limit `id` to this many characters.
     Set to `0` for unlimited length.
     Set to `null` for default, which is `0`.
     Does not affect `id_full`.

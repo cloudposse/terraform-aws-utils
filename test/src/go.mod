@@ -1,6 +1,6 @@
-module github.com/cloudposse/terraform-example-module
+module github.com/cloudposse/terraform-aws-utils
 
-go 1.13
+go 1.14
 
 require (
 	github.com/gruntwork-io/terratest v0.28.15

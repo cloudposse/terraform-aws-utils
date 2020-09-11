@@ -1,20 +1,18 @@
-output "to_fixed" {
-  description = "Map of regions to 3-character codes and Availability Zones to 4-character codes"
-  value       = local.to_fixed
-}
+output "region_az_alt_code_maps" {
+  description = <<-EOT
+    Collection of maps converting between official AWS Region, Availabiltiy Zone, and Local Zone codes and shorter unofffical codes without hyphens. Inspired for use in naming and tagging so that region or AZ code will be 1 semantic unit.
 
-output "to_short" {
-  description = "Map of regions and Availability Zones to compact (4-6 characters) codes without hyphens"
-  value       = local.to_short
+    - `to_fixed` = Map of regions to 3-character codes and Availability Zones to 4-character codes without hyphens
+    - `to_short` = Map of regions and Availability Zones to compact (usually 4-6 characters) codes without hyphens
+    - `from_fixed` = Map of `fixed` codes back to full region or Availability Zone codes
+    - `from_short` = Map of `short` codes back to full region or Availability Zone codes
+    - `identity` = Identity map of full region and Availability Zone codes back to themselves
+    EOT
+  value = {
+    to_fixed   = local.to_fixed
+    to_short   = local.to_short
+    from_fixed = local.from_fixed
+    from_short = local.from_short
+    identity   = local.identity
+  }
 }
-
-output "from_fixed" {
-  description = "Map of `fixed` codes to full region or Availability Zone codes"
-  value       = local.from_fixed
-}
-
-output "from_short" {
-  description = "Map of `short` codes to full region or Availability Zone codes"
-  value       = local.from_short
-}
-

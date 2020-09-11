@@ -4,22 +4,22 @@ output "region" {
 }
 
 output "fixed" {
-  description = "Map region to fixed"
-  value       = module.example.to_fixed[var.region]
+  description = "Configured region mapped to fixed code"
+  value       = local.code_maps.to_fixed[var.region]
 }
 
 output "short" {
-  description = "Map region to short"
-  value       = module.example.to_short[var.region]
+  description = "Configured region mapped to short code"
+  value       = local.code_maps.to_short[var.region]
 }
 
 output "fixed_round_trip" {
-  description = "Map region to fixed and back"
-  value       = module.example.from_fixed[module.example.to_fixed[var.region]]
+  description = "Configured region mapped to fixed code and back"
+  value       = local.code_maps.from_fixed[local.code_maps.to_fixed[var.region]]
 }
 
 output "short_round_trip" {
-  description = "Map region to short and back"
-  value       = module.example.from_short[module.example.to_short[var.region]]
+  description = "Configured region mapped to short code"
+  value       = local.code_maps.from_short[local.code_maps.to_short[var.region]]
 }
 

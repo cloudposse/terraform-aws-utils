@@ -64,7 +64,7 @@ This `terraform-aws-utils` project provides some simple utilities to use when wo
 limited to providing maps from regions and availability zones to stable abbreviations for them. Use these maps
 to convert regions and avaialility zones to attributes that do not have dashes in them.
 
-The `short` abbreviations are variable length (generally 4-6 characters, but not guaranteed)
+The `short` abbreviations are variable length (generally 4-6 characters, but length limits not guaranteed)
 and strictly algorithmically derived so that people can more easily interpret them.
 The `fixed` abbreviations are always exactly 3 characters for regions and 4 characters
 for availability zones and local zones, but have some exceptional cases (China, Africa, Asia-Pacific South, US GovCloud)
@@ -90,10 +90,15 @@ module "example" {
   source = "https://github.com/cloudposse/terraform-aws-utils.git?ref=master"
 }
 
+locals {
+  naming_convention = var.shorten_regions ? "to_short" : "identity"
+  az_map = module.example.region_az_alt_code_maps[local.naming_convention]]
+}
+
 module "label" {
   source = "git::https://github.com/cloudposse/terraform-null-label.git?ref=master"
 
-  attributes = [module.example.to_fixed["us-east-2"]
+  attributes = [local.az_map["us-east-2"]
 
   context = module.this.context
 }
@@ -140,7 +145,7 @@ No provider.
 |------|-------------|------|---------|:--------:|
 | additional\_tag\_map | (Ignored) Additional tags for appending to tags\_as\_list\_of\_maps. Not added to `tags`. | `map(string)` | `{}` | no |
 | attributes | (Ignored) Additional attributes (e.g. `1`) | `list(string)` | `[]` | no |
-| context | NOTE: This object and associated variables are<br>provided for compatibility with other Cloud Posse modules<br>but ARE NOT USED at present. | <pre>object({<br>    enabled             = bool<br>    namespace           = string<br>    environment         = string<br>    stage               = string<br>    name                = string<br>    delimiter           = string<br>    attributes          = list(string)<br>    tags                = map(string)<br>    additional_tag_map  = map(string)<br>    regex_replace_chars = string<br>    label_order         = list(string)<br>    id_length_limit     = number<br>  })</pre> | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_order": [],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {}<br>}</pre> | no |
+| context | NOTE: This object and associated variables are provided for compatibility with other Cloud Posse modules but **ARE NOT USED** at present. | <pre>object({<br>    enabled             = bool<br>    namespace           = string<br>    environment         = string<br>    stage               = string<br>    name                = string<br>    delimiter           = string<br>    attributes          = list(string)<br>    tags                = map(string)<br>    additional_tag_map  = map(string)<br>    regex_replace_chars = string<br>    label_order         = list(string)<br>    id_length_limit     = number<br>  })</pre> | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_order": [],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {}<br>}</pre> | no |
 | delimiter | (Ignored) Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | enabled | (Ignored) Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | environment | (Ignored) Environment, e.g. 'uw2', 'us-west-2', OR 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
@@ -157,10 +162,7 @@ No provider.
 
 | Name | Description |
 |------|-------------|
-| from\_fixed | Map of `fixed` codes to full region or Availability Zone codes |
-| from\_short | Map of `short` codes to full region or Availability Zone codes |
-| to\_fixed | Map of regions to 3-character codes and Availability Zones to 4-character codes |
-| to\_short | Map of regions and Availability Zones to compact (4-6 characters) codes without hyphens |
+| region\_az\_alt\_code\_maps | Collection of maps converting between official AWS Region, Availabiltiy Zone, and Local Zone codes and shorter unofffical codes without hyphens. Inspired for use in naming and tagging so that region or AZ code will be 1 semantic unit.<br><br>- `to_fixed` = Map of regions to 3-character codes and Availability Zones to 4-character codes without hyphens<br>- `to_short` = Map of regions and Availability Zones to compact (usually 4-6 characters) codes without hyphens<br>- `from_fixed` = Map of `fixed` codes back to full region or Availability Zone codes<br>- `from_short` = Map of `short` codes back to full region or Availability Zone codes<br>- `identity` = Identity map of full region and Availability Zone codes back to themselves |
 
 <!-- markdownlint-restore -->
 

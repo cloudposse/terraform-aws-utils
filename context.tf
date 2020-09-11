@@ -75,10 +75,8 @@ variable "context" {
     id_length_limit     = null
   }
   description = <<-EOT
-    NOTE: This object and associated variables are
-    provided for compatibility with other Cloud Posse modules
-    but ARE NOT USED at present.
-  EOT
+    NOTE: This object and associated variables are provided for compatibility with other Cloud Posse modules but **ARE NOT USED** at present.
+    EOT
 }
 
 variable "enabled" {

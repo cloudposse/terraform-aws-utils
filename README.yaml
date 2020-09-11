@@ -64,7 +64,7 @@ introduction: |-
   limited to providing maps from regions and availability zones to stable abbreviations for them. Use these maps
   to convert regions and avaialility zones to attributes that do not have dashes in them.
 
-  The `short` abbreviations are variable length (generally 4-6 characters, but not guaranteed)
+  The `short` abbreviations are variable length (generally 4-6 characters, but length limits not guaranteed)
   and strictly algorithmically derived so that people can more easily interpret them.
   The `fixed` abbreviations are always exactly 3 characters for regions and 4 characters
   for availability zones and local zones, but have some exceptional cases (China, Africa, Asia-Pacific South, US GovCloud)
@@ -85,10 +85,15 @@ usage: |-
     source = "https://github.com/cloudposse/terraform-aws-utils.git?ref=master"
   }
 
+  locals {
+    naming_convention = var.shorten_regions ? "to_short" : "identity"
+    az_map = module.example.region_az_alt_code_maps[local.naming_convention]]
+  }
+
   module "label" {
     source = "git::https://github.com/cloudposse/terraform-null-label.git?ref=master"
 
-    attributes = [module.example.to_fixed["us-east-2"]
+    attributes = [local.az_map["us-east-2"]
 
     context = module.this.context
   }

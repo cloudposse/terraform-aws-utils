@@ -1,7 +1,9 @@
 module "example" {
   source = "../.."
 
-  example = var.example
-
   context = module.this.context
+}
+
+locals {
+  code_maps = module.example.region_az_alt_code_maps
 }

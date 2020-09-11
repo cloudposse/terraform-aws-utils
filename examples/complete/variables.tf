@@ -1,4 +1,4 @@
-variable "example" {
+variable "region" {
   type        = string
-  description = "The value which will be passed to the example module"
+  description = "A test region"
 }

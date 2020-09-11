@@ -131,9 +131,8 @@ Available targets:
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12.0, < 0.14.0 |
-| local | ~> 1.2 |
-| random | ~> 2.2 |
+| terraform | >= 0.12.0 |
+| local | >= 1.2 |
 
 ## Providers
 

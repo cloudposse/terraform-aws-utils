@@ -16,3 +16,14 @@ output "region_az_alt_code_maps" {
     identity   = local.identity
   }
 }
+
+output "enabled_regions" {
+  description = "A list of regions that are enabled in the account"
+  value       = setunion(data.aws_regions.default.names, data.aws_regions.opted_in.names)
+}
+
+output "disabled_regions" {
+  description = "A list of regions that are disabled in the account"
+  value       = data.aws_regions.not_opted_in.names
+}
+

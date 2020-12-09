@@ -752,3 +752,30 @@ locals {
   }
 
 }
+
+data "aws_regions" "default" {
+  all_regions = true
+
+  filter {
+    name   = "opt-in-status"
+    values = ["opt-in-not-required"]
+  }
+}
+
+data "aws_regions" "opted_in" {
+  all_regions = true
+
+  filter {
+    name   = "opt-in-status"
+    values = ["opted-in"]
+  }
+}
+
+data "aws_regions" "not_opted_in" {
+  all_regions = true
+
+  filter {
+    name   = "opt-in-status"
+    values = ["not-opted-in"]
+  }
+}

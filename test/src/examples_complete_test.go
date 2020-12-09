@@ -26,13 +26,17 @@ func TestExamplesComplete(t *testing.T) {
 	region := terraform.Output(t, terraformOptions, "region")
 	fixed := terraform.Output(t, terraformOptions, "fixed")
 	short := terraform.Output(t, terraformOptions, "short")
-	fixed_round_trip := terraform.Output(t, terraformOptions, "fixed_round_trip")
-	short_round_trip := terraform.Output(t, terraformOptions, "short_round_trip")
+	fixedRoundTrip := terraform.Output(t, terraformOptions, "fixed_round_trip")
+	shortRoundTrip := terraform.Output(t, terraformOptions, "short_round_trip")
+	enabledRegions := terraform.OutputList(t, terraformOptions, "enabled_regions")
+	disabledRegions := terraform.OutputList(t, terraformOptions, "disabled_regions")
 
 	// Verify we're getting back the outputs we expect
 	assert.Len(t, fixed, 3)
 	assert.GreaterOrEqual(t, len(short), 4)
 	assert.LessOrEqual(t, len(short), 6)
-	assert.Equal(t, region, fixed_round_trip)
-	assert.Equal(t, region, short_round_trip)
+	assert.Equal(t, region, fixedRoundTrip)
+	assert.Equal(t, region, shortRoundTrip)
+	assert.Contains(t, enabledRegions, "us-east-1")
+	assert.Contains(t, disabledRegions, "af-south-1")
 }

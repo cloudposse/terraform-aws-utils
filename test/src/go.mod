@@ -3,7 +3,7 @@ module github.com/cloudposse/terraform-aws-utils
 go 1.14
 
 require (
-	github.com/gruntwork-io/terratest v0.28.15
+	github.com/gruntwork-io/terratest v0.31.1
 	github.com/stretchr/testify v1.6.1
 	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a // indirect
 	golang.org/x/net v0.0.0-20200822124328-c89045814202 // indirect

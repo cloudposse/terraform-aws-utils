@@ -23,3 +23,12 @@ output "short_round_trip" {
   value       = local.code_maps.from_short[local.code_maps.to_short[var.region]]
 }
 
+output "enabled_regions" {
+  description = "A list of regions that are enabled in the account"
+  value       = module.example.enabled_regions
+}
+
+output "disabled_regions" {
+  description = "A list of regions that are disabled in the account"
+  value       = module.example.disabled_regions
+}

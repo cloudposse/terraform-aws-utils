@@ -132,14 +132,14 @@ Available targets:
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12.0 |
-| local | >= 1.2 |
+| terraform | >= 0.12.26 |
+| aws | => 2 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | n/a |
+| aws | => 2 |
 
 ## Inputs
 

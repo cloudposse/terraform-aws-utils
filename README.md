@@ -135,13 +135,13 @@ Available targets:
 | Name | Version |
 |------|---------|
 | terraform | >= 0.12.26 |
-| aws | => 2 |
+| aws | >= 2 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | => 2 |
+| aws | >= 2 |
 
 ## Inputs
 

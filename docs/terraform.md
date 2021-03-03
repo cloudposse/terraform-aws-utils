@@ -12,6 +12,18 @@
 |------|---------|
 | aws | >= 2 |
 
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| this | cloudposse/label/null | 0.22.0 |
+
+## Resources
+
+| Name |
+|------|
+| [aws_regions](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/regions) |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -38,5 +50,4 @@
 | disabled\_regions | A list of regions that are disabled in the account |
 | enabled\_regions | A list of regions that are enabled in the account |
 | region\_az\_alt\_code\_maps | Collection of maps converting between official AWS Region, Availability Zone, and Local Zone codes and shorter unofficial codes using only lower case letters and digits. Inspired for use in naming and tagging so that region or AZ code will be 1 semantic unit.<br><br>- `to_fixed` = Map of regions to 3-character codes and Availability Zones to 4-character codes<br>- `to_short` = Map of regions and Availability Zones to compact (usually 4-6 characters) codes<br>- `from_fixed` = Map of `fixed` codes back to full region or Availability Zone codes<br>- `from_short` = Map of `short` codes back to full region or Availability Zone codes<br>- `identity` = Identity map of full region and Availability Zone codes back to themselves |
-
 <!-- markdownlint-restore -->

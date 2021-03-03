@@ -38,6 +38,11 @@ locals {
     "ap-northeast-2g" = "an2g"
     "ap-northeast-2h" = "an2h"
 
+    "ap-northeast-3"  = "an3"
+    "ap-northeast-3a" = "an3a"
+    "ap-northeast-3b" = "an3b"
+    "ap-northeast-3c" = "an3c"
+
     "ap-south-1"  = "as0"
     "ap-south-1a" = "as0a"
     "ap-south-1b" = "as0b"
@@ -284,6 +289,11 @@ locals {
     "ap-northeast-2f" = "apne2f"
     "ap-northeast-2g" = "apne2g"
     "ap-northeast-2h" = "apne2h"
+
+    "ap-northeast-3"  = "apne3"
+    "ap-northeast-3a" = "apne3a"
+    "ap-northeast-3b" = "apne3b"
+    "ap-northeast-3c" = "apne3c"
 
     "ap-south-1"  = "aps1"
     "ap-south-1a" = "aps1a"
@@ -534,6 +544,11 @@ locals {
     "ap-northeast-2f" = "ap-northeast-2f"
     "ap-northeast-2g" = "ap-northeast-2g"
     "ap-northeast-2h" = "ap-northeast-2h"
+
+    "ap-northeast-3"  = "ap-northeast-3"
+    "ap-northeast-3a" = "ap-northeast-3a"
+    "ap-northeast-3b" = "ap-northeast-3b"
+    "ap-northeast-3c" = "ap-northeast-3c"
 
     "ap-south-1"  = "ap-south-1"
     "ap-south-1a" = "ap-south-1a"

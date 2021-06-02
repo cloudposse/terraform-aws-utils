@@ -92,7 +92,9 @@ usage: |-
   }
 
   module "label" {
-    source = "git::https://github.com/cloudposse/terraform-null-label.git?ref=master"
+    source = "cloudposse/label/null"
+    # Cloud Posse recommends pinning every module to a specific version
+    # version     = "x.x.x"
 
     attributes = [local.az_map["us-east-2"]]
 

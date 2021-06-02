@@ -7,13 +7,15 @@ output "region_az_alt_code_maps" {
     - `from_fixed` = Map of `fixed` codes back to full region or Availability Zone codes
     - `from_short` = Map of `short` codes back to full region or Availability Zone codes
     - `identity` = Identity map of full region and Availability Zone codes back to themselves
+    - `elb_logging_account` = Map of full region to ELB logging account
     EOT
   value = {
-    to_fixed   = local.to_fixed
-    to_short   = local.to_short
-    from_fixed = local.from_fixed
-    from_short = local.from_short
-    identity   = local.identity
+    to_fixed            = local.to_fixed
+    to_short            = local.to_short
+    from_fixed          = local.from_fixed
+    from_short          = local.from_short
+    identity            = local.identity
+    elb_logging_account = local.elb_logging_account
   }
 }
 

@@ -115,13 +115,16 @@ The table below correctly indicates which inputs are required.
 Here's how to invoke this example module in your projects
 
 ```hcl
-module "example" {
-  source = "https://github.com/cloudposse/terraform-aws-utils.git?ref=master"
+locals {
+  shorten_regions   = true
+  naming_convention = local.shorten_regions ? "to_short" : "identity"
+  az_map            = module.example.region_az_alt_code_maps[local.naming_convention]
 }
 
-locals {
-  naming_convention = var.shorten_regions ? "to_short" : "identity"
-  az_map = module.example.region_az_alt_code_maps[local.naming_convention]]
+module "utils_example_complete" {
+  source  = "cloudposse/utils/aws"
+  # Cloud Posse recommends pinning every module to a specific version
+  # version     = "x.x.x"
 }
 
 module "label" {

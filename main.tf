@@ -82,7 +82,7 @@ locals {
     "ap-southeast-3f" = "as3f"
     "ap-southeast-3g" = "as3g"
     "ap-southeast-3h" = "as3h"
-    
+
     "ca-central-1"  = "cc1"
     "ca-central-1a" = "cc1a"
     "ca-central-1b" = "cc1b"
@@ -344,7 +344,7 @@ locals {
     "ap-southeast-3f" = "apse3f"
     "ap-southeast-3g" = "apse3g"
     "ap-southeast-3h" = "apse3h"
-    
+
     "ca-central-1"  = "cac1"
     "ca-central-1a" = "cac1a"
     "ca-central-1b" = "cac1b"
@@ -609,7 +609,7 @@ locals {
     "ap-southeast-3f" = "ap-southeast-3f"
     "ap-southeast-3g" = "ap-southeast-3g"
     "ap-southeast-3h" = "ap-southeast-3h"
-    
+
     "ca-central-1"  = "ca-central-1"
     "ca-central-1a" = "ca-central-1a"
     "ca-central-1b" = "ca-central-1b"

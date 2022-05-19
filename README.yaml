@@ -36,6 +36,9 @@ badges:
 
 # List any related terraform modules that this module may be used with or that this module depends on.
 related:
+  - name: "terraform-provider-utils"
+    description: "The Cloud Posse Terraform Provider for various utilities (e.g. deep merging, stack configuration management)."
+    url: "https://github.com/cloudposse/terraform-provider-utils"
   - name: "terraform-null-label"
     description: "Terraform module designed to generate consistent names and tags for resources. Use terraform-null-label to implement a strict naming convention."
     url: "https://github.com/cloudposse/terraform-null-label"
@@ -56,26 +59,46 @@ references:
     url: "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html"
 # Short description of this project
 description: |-
-  This `terraform-aws-utils` project provides some simple utilities to use when working in AWS.
+  This `terraform-aws-utils` module provides some simple utilities to use when working in AWS.
 
 # Introduction to the project
 introduction: |-
-  This `terraform-aws-utils` project provides some simple utilities to use when working in AWS. At the moment, it is
-  limited to providing compact alternative codes for Regions, Availability Zones, and Local Zones that are
-  guaranteed to use only digits and lower case letters: no hyphens. Conversions to and from official codes
-  and alternative codes are handled via lookup maps.
+  This `terraform-aws-utils` module provides some simple utilities to use when working in AWS.
+  More complex utilities are available through Cloud Posse's `utils` Terraform provider
+  [terraform-provider-utils](https://github.com/cloudposse/terraform-provider-utils).
 
-  The `short` abbreviations are variable length (generally 4-6 characters, but length limits not guaranteed)
-  and strictly algorithmically derived so that people can more easily interpret them.
-  The `fixed` abbreviations are always exactly 3 characters for regions and 4 characters
+  ### Compact Alternative Codes (Abbreviations)
+  This module's primary function is to provide compact alternative codes for Regions, Availability Zones,
+  and Local Zones, codes which are guaranteed to use only digits and lower case letters: no hyphens.
+  Conversions to and from official codes and alternative codes are handled via lookup maps.
+
+  - The `short` abbreviations are variable length (generally 4-6 characters, but length limits not guaranteed)
+  and strictly algorithmically derived so that people can more easily interpret them. The `short` region
+  code abbreviations typically match the prefix of the Availability Zone IDs in that region, but this is
+  not guaranteed.
+  - The `fixed` abbreviations are always exactly 3 characters for regions and 4 characters
   for availability zones and local zones, but have some exceptional cases (China, Africa, Asia-Pacific South, US GovCloud)
   that have non-obvious abbreviations.
+  - The `identity` "abbreviations" are not abbreviations but are instead the official codes (output equals input,
+  which is why it is called "identity"). This map is provided to simplify algorithmic choice of region code
+  abbreviation when you want to include a "no abbreviation" option.
 
   We currently support Local Zones but not Wavelength Zones. If we support Wavelength Zones in the future,
   it is likely that the fixed-length abbreviations for them will be non-intuitive.
 
   The intention is that existing mappings will never change, and if new regions or zones are created that
   conflict with existing ones, they will be given non-standard mappings so as not to conflict.
+
+  ### ELB Logging Account IDs
+
+  This module provides Elastic Load Balancing Account IDs per region to be used in
+  configuring [S3 Bucket Permissions](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html#access-logging-bucket-permissions)
+  to allow access logs to be stored in S3.
+
+  ### Enabled and Disabled Regions
+
+  For convenience, this module provides lists of enabled and disabled regions in the current account. Note that
+  since these lists are dynamic, they cannot be used in Terraform `count` or `for_each` resource expressions.
 
 # How to use this module. Should be an easy example to copy and paste.
 usage: |-
@@ -123,3 +146,5 @@ include:
 contributors:
   - name: "Erik Osterman"
     github: "osterman"
+  - name: "Nuru"
+    github: "Nuru"

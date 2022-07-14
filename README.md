@@ -138,7 +138,7 @@ Here's how to invoke this example module in your projects
 locals {
   shorten_regions   = true
   naming_convention = local.shorten_regions ? "to_short" : "identity"
-  az_map            = module.example.region_az_alt_code_maps[local.naming_convention]
+  az_map            = module.utils_example_complete.region_az_alt_code_maps[local.naming_convention]
 }
 
 module "utils_example_complete" {

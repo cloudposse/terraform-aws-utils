@@ -70,28 +70,54 @@ This module's primary function is to provide compact alternative codes for Regio
 and Local Zones, codes which are guaranteed to use only digits and lower case letters: no hyphens.
 Conversions to and from official codes and alternative codes are handled via lookup maps.
 
-- The `short` abbreviations are variable length (generally 4-6 characters, but length limits not guaranteed)
+- The `short` abbreviations for regions are variable length (generally 4-6 characters, but length limits not guaranteed)
 and strictly algorithmically derived so that people can more easily interpret them. The `short` region
 code abbreviations typically match the prefix of the Availability Zone IDs in that region, but this is
-not guaranteed.
+not guaranteed. The `short` abbreviations for local regions are generally of the form AWS uses, with
+the region prefix and dashes removed.
 - The `fixed` abbreviations are always exactly 3 characters for regions and 4 characters
 for availability zones and local zones, but have some exceptional cases (China, Africa, Asia-Pacific South, US GovCloud)
-that have non-obvious abbreviations.
+that have non-obvious abbreviations. If a future new region causes a conflict with an established local zone
+abbreviation, we may change the local zone abbreviation to to keep the region mappings consistent. For example,
+the local zone `us-east-1-mci-1a` would have been abbreviated `mc1a` had we released it earlier, and that would have
+conflicted with the new (in 2022) `me-central-1a` which would also be abbreviated `mc1a` in keeping with the general
+pattern of using the first letter of each of the first 2 parts. We might have chosen to change the abbreviation
+for `us-east-1-mci-1` so we could use `mc1a` for `me-central-1a`. (As it happens, we added them both at the same
+time and avoided this collision.) If we were to make such a change, this
+would be a breaking change for people using the affected local zone, so we recommend using the `short`
+abbreviations if you are using local zones, which are far less likely to have conflicts in the future.
 - The `identity` "abbreviations" are not abbreviations but are instead the official codes (output equals input,
 which is why it is called "identity"). This map is provided to simplify algorithmic choice of region code
 abbreviation when you want to include a "no abbreviation" option.
 
 We currently support Local Zones but not Wavelength Zones. If we support Wavelength Zones in the future,
-it is likely that the fixed-length abbreviations for them will be non-intuitive.
+it is likely that the fixed-length abbreviations for them will be non-intuitive, or we may only provide
+`short` and not `fixed` abbreviations for them.
 
-The intention is that existing mappings will never change, and if new regions or zones are created that
-conflict with existing ones, they will be given non-standard mappings so as not to conflict.
+The intention is that existing region mappings will never change, and if new regions or zones are created that
+conflict with existing ones, they will be given non-standard mappings so as not to conflict. However, as
+stated above, we may choose to change a local region abbreviation if it conflicts with the obvious abbreviation
+for a newly created region. We have picked abbreviations for local zones with avoiding such future
+collisions in mind, but we cannot predict the future. (Both `bos` and `den` fit the pattern for region abbreviations,
+but we do not envision a future `bo-south-1` or `de-north-1` region.)
 
-### ELB Logging Account IDs
+### ELB Logging
 
 This module provides Elastic Load Balancing Account IDs per region to be used in
 configuring [S3 Bucket Permissions](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html#access-logging-bucket-permissions)
 to allow access logs to be stored in S3.
+
+However, the account IDs have no other purpose, and as AWS expands, it has become more complicated to create
+the correct bucket policy. The policy for region `me-central-1` is different than the policy for `us-east-1` and
+both are different from the policy to be used with a local zone. So now this module has a new feature: you
+provide the full AWS region code for the region where logging is to take place (`elb_logging_region`), and the S3 bucket ARN for
+where logs are to be stored (`elb_logging_bucket_resource_arn`), and this module will output the appropriate
+S3 bucket policy (in JSON) to attach to your S3 bucket.
+
+### Region Display Names
+
+There is no AWS API that reliably returns the human-friendly display name (e.g. "Europe (Stockholm)") given
+the API-friendly region name. So this module provides `region_display_name_map` to implement this functionality.
 
 ### Enabled and Disabled Regions
 
@@ -204,6 +230,9 @@ Available targets:
 
 | Name | Type |
 |------|------|
+| [aws_iam_policy_document.by_account](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.by_outpost](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.by_region](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_regions.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/regions) | data source |
 | [aws_regions.not_opted_in](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/regions) | data source |
 | [aws_regions.opted_in](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/regions) | data source |
@@ -217,9 +246,10 @@ Available targets:
 | <a name="input_context"></a> [context](#input\_context) | Single object for setting entire context at once.<br>See description of individual variables for details.<br>Leave string and numeric variables as `null` to use default value.<br>Individual variable settings (non-null) override settings in context object,<br>except for attributes, tags, and additional\_tag\_map, which are merged. | `any` | <pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": null,<br>  "descriptor_formats": {},<br>  "enabled": true,<br>  "environment": null,<br>  "id_length_limit": null,<br>  "label_key_case": null,<br>  "label_order": [],<br>  "label_value_case": null,<br>  "labels_as_tags": [<br>    "unset"<br>  ],<br>  "name": null,<br>  "namespace": null,<br>  "regex_replace_chars": null,<br>  "stage": null,<br>  "tags": {},<br>  "tenant": null<br>}</pre> | no |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
+| <a name="input_elb_logging_bucket_resource_arn"></a> [elb\_logging\_bucket\_resource\_arn](#input\_elb\_logging\_bucket\_resource\_arn) | The AWS Resource ARN to use in the policy granting access to Load Balancer Logging.<br>Typically of the form `arn:aws:s3:::_bucket-name_/_prefix_/AWSLogs/_your-aws-account-id_/*`.<br>Required to generate `elb_logging_s3_bucket_policy_json`.<br>See [AWS Documentation](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/enable-access-logging.html#attach-bucket-policy). | `string` | `""` | no |
+| <a name="input_elb_logging_region"></a> [elb\_logging\_region](#input\_elb\_logging\_region) | Full region (e.g. `us-east-1`) where ELB logging is taking place. Required to generate `elb_s3_bucket_policy_json`. | `string` | `""` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
-| <a name="input_example"></a> [example](#input\_example) | Example variable | `string` | `"hello world"` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |
 | <a name="input_label_key_case"></a> [label\_key\_case](#input\_label\_key\_case) | Controls the letter case of the `tags` keys (label names) for tags generated by this module.<br>Does not affect keys of tags passed in via the `tags` input.<br>Possible values: `lower`, `title`, `upper`.<br>Default value: `title`. | `string` | `null` | no |
 | <a name="input_label_order"></a> [label\_order](#input\_label\_order) | The order in which the labels (ID elements) appear in the `id`.<br>Defaults to ["namespace", "environment", "stage", "name", "attributes"].<br>You can omit any of the 6 labels ("tenant" is the 6th), but at least one must be present. | `list(string)` | `null` | no |
@@ -238,8 +268,10 @@ Available targets:
 |------|-------------|
 | <a name="output_disabled_regions"></a> [disabled\_regions](#output\_disabled\_regions) | A list of regions that are disabled in the account |
 | <a name="output_elb_logging_account"></a> [elb\_logging\_account](#output\_elb\_logging\_account) | Map of full region to ELB logging account |
+| <a name="output_elb_logging_s3_bucket_policy_json"></a> [elb\_logging\_s3\_bucket\_policy\_json](#output\_elb\_logging\_s3\_bucket\_policy\_json) | The S3 bucket policy (in JSON) to attach to the S3 bucket to allow Load Balancer logs to be added.<br>Requires `elb_logging_bucket_resource_arn` and `elb_logging_region` inputs. |
 | <a name="output_enabled_regions"></a> [enabled\_regions](#output\_enabled\_regions) | A list of regions that are enabled in the account |
 | <a name="output_region_az_alt_code_maps"></a> [region\_az\_alt\_code\_maps](#output\_region\_az\_alt\_code\_maps) | Collection of maps converting between official AWS Region, Availability Zone, and Local Zone codes and shorter unofficial codes using only lower case letters and digits. Inspired for use in naming and tagging so that region or AZ code will be 1 semantic unit.<br><br>- `to_fixed` = Map of regions to 3-character codes and Availability Zones to 4-character codes<br>- `to_short` = Map of regions and Availability Zones to compact (usually 4-6 characters) codes<br>- `from_fixed` = Map of `fixed` codes back to full region or Availability Zone codes<br>- `from_short` = Map of `short` codes back to full region or Availability Zone codes<br>- `identity` = Identity map of full region and Availability Zone codes back to themselves |
+| <a name="output_region_display_name_map"></a> [region\_display\_name\_map](#output\_region\_display\_name\_map) | Map of full region names to user-friendly display names (e.g. "eu-west-3" = "Europe (Paris)"). |
 <!-- markdownlint-restore -->
 
 

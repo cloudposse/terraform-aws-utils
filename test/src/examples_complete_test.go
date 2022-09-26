@@ -29,7 +29,8 @@ func TestExamplesComplete(t *testing.T) {
 	fixedRoundTrip := terraform.Output(t, terraformOptions, "fixed_round_trip")
 	shortRoundTrip := terraform.Output(t, terraformOptions, "short_round_trip")
 	enabledRegions := terraform.OutputList(t, terraformOptions, "enabled_regions")
-	disabledRegions := terraform.OutputList(t, terraformOptions, "disabled_regions")
+	//disabledRegions := terraform.OutputList(t, terraformOptions, "disabled_regions")
+	idSize := terraform.Output(t, terraformOptions, "identity_size")
 
 	// Verify we're getting back the outputs we expect
 	assert.Len(t, fixed, 3)
@@ -38,5 +39,12 @@ func TestExamplesComplete(t *testing.T) {
 	assert.Equal(t, region, fixedRoundTrip)
 	assert.Equal(t, region, shortRoundTrip)
 	assert.Contains(t, enabledRegions, "us-east-1")
-	assert.Contains(t, disabledRegions, "af-south-1")
+	// We may enable all regions in the test account
+	//assert.Contains(t, disabledRegions, "af-south-1")
+
+	assert.Equal(t, idSize, terraform.Output(t, terraformOptions, "to_short_size"), "Transformation maps are different sizes")
+	assert.Equal(t, idSize, terraform.Output(t, terraformOptions, "to_fixed_size"), "Transformation maps are different sizes")
+	assert.Equal(t, idSize, terraform.Output(t, terraformOptions, "from_short_size"), "Transformation maps are different sizes")
+	assert.Equal(t, idSize, terraform.Output(t, terraformOptions, "from_fixed_size"), "Transformation maps are different sizes")
+
 }

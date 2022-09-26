@@ -80,7 +80,7 @@ introduction: |-
   - The `fixed` abbreviations are always exactly 3 characters for regions and 4 characters
   for availability zones and local zones, but have some exceptional cases (China, Africa, Asia-Pacific South, US GovCloud)
   that have non-obvious abbreviations. If a future new region causes a conflict with an established local zone
-  abbreviation, we may change the local zone abbreviation to to keep the region mappings consistent. For example,
+  abbreviation, we may change the local zone abbreviation to keep the region mappings consistent. For example,
   the local zone `us-east-1-mci-1a` would have been abbreviated `mc1a` had we released it earlier, and that would have
   conflicted with the new (in 2022) `me-central-1a` which would also be abbreviated `mc1a` in keeping with the general
   pattern of using the first letter of each of the first 2 parts. We might have chosen to change the abbreviation

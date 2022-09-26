@@ -17,14 +17,17 @@ output "identity_size" {
   description = "Size of identity map"
   value       = local.identity_size
 }
+
 output "to_short_size" {
   description = "Size of to_short map"
   value       = local.to_short_size
 }
+
 output "to_fixed_size" {
   description = "Size of to_fixed map"
   value       = local.to_fixed_size
 }
+
 output "from_short_size" {
   description = "Size of from_short map"
   value       = local.from_short_size

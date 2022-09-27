@@ -1,13 +1,11 @@
 locals {
+  // Do not base policy availability on resource ARN, as it may not be available at plan time
   elb_policy_enabled = (module.this.enabled &&
-    try(length(var.elb_logging_bucket_resource_arn), 0) > 0 &&
     try(length(var.elb_logging_region), 0) > 0
   )
-  region_is_outpost = try(length(split("-", var.elb_logging_region)), 0) > 3
 
   elb_policy_by_account = local.elb_policy_enabled && try(length(local.elb_logging_account[var.elb_logging_region]), 0) > 0
-  elb_policy_by_outpost = local.elb_policy_enabled && local.region_is_outpost
-  elb_policy_by_region  = local.elb_policy_enabled && ! local.elb_policy_by_account && ! local.elb_policy_by_outpost
+  elb_policy_by_region  = local.elb_policy_enabled && ! local.elb_policy_by_account
 
   # https://docs.aws.amazon.com/elasticloadbalancing/latest/application/enable-access-logging.html#attach-bucket-policy
   elb_logging_account = {
@@ -73,28 +71,6 @@ data "aws_iam_policy_document" "by_region" {
     principals {
       type        = "Service"
       identifiers = ["logdelivery.elasticloadbalancing.amazonaws.com"]
-    }
-  }
-}
-
-# Policy for outposts (local regions) according to
-# https://docs.aws.amazon.com/elasticloadbalancing/latest/application/enable-access-logging.html#attach-bucket-policy
-data "aws_iam_policy_document" "by_outpost" {
-  statement {
-    sid       = "LoadBalancerLoggingAccess"
-    effect    = "Allow"
-    resources = [var.elb_logging_bucket_resource_arn]
-    actions   = ["s3:PutObject"]
-
-    condition {
-      test     = "StringEquals"
-      variable = "s3:x-amz-acl"
-      values   = ["bucket-owner-full-control"]
-    }
-
-    principals {
-      type        = "Service"
-      identifiers = ["logdelivery.elb.amazonaws.com"]
     }
   }
 }

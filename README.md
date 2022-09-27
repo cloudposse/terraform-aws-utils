@@ -108,11 +108,13 @@ configuring [S3 Bucket Permissions](https://docs.aws.amazon.com/elasticloadbalan
 to allow access logs to be stored in S3.
 
 However, the account IDs have no other purpose, and as AWS expands, it has become more complicated to create
-the correct bucket policy. The policy for region `me-central-1` is different than the policy for `us-east-1` and
-both are different from the policy to be used with a local zone. So now this module has a new feature: you
-provide the full AWS region code for the region where logging is to take place (`elb_logging_region`), and the S3 bucket ARN for
-where logs are to be stored (`elb_logging_bucket_resource_arn`), and this module will output the appropriate
-S3 bucket policy (in JSON) to attach to your S3 bucket.
+the correct bucket policy. The policy for region `me-central-1` is different than the policy for `us-east-1`.
+So now this module has a new feature: you provide the full AWS region code for the region where logging
+is to take place (`elb_logging_region`), and the S3 bucket ARN for where logs are to be stored (`elb_logging_bucket_resource_arn`),
+and this module will output the appropriate S3 bucket policy (in JSON) to attach to your S3 bucket.
+
+NOTE: The region must be known at Terraform "plan" time. Use a configuration input, such as what you used
+to configure the Terraform AWS Provider, not an output from some resource or module.
 
 ### Region Display Names
 
@@ -231,7 +233,6 @@ Available targets:
 | Name | Type |
 |------|------|
 | [aws_iam_policy_document.by_account](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.by_outpost](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.by_region](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_regions.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/regions) | data source |
 | [aws_regions.not_opted_in](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/regions) | data source |
@@ -247,7 +248,7 @@ Available targets:
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between ID elements.<br>Defaults to `-` (hyphen). Set to `""` to use no delimiter at all. | `string` | `null` | no |
 | <a name="input_descriptor_formats"></a> [descriptor\_formats](#input\_descriptor\_formats) | Describe additional descriptors to be output in the `descriptors` output map.<br>Map of maps. Keys are names of descriptors. Values are maps of the form<br>`{<br>   format = string<br>   labels = list(string)<br>}`<br>(Type is `any` so the map values can later be enhanced to provide additional options.)<br>`format` is a Terraform format string to be passed to the `format()` function.<br>`labels` is a list of labels, in order, to pass to `format()` function.<br>Label values will be normalized before being passed to `format()` so they will be<br>identical to how they appear in `id`.<br>Default is `{}` (`descriptors` output will be empty). | `any` | `{}` | no |
 | <a name="input_elb_logging_bucket_resource_arn"></a> [elb\_logging\_bucket\_resource\_arn](#input\_elb\_logging\_bucket\_resource\_arn) | The AWS Resource ARN to use in the policy granting access to Load Balancer Logging.<br>Typically of the form `arn:aws:s3:::_bucket-name_/_prefix_/AWSLogs/_your-aws-account-id_/*`.<br>Required to generate `elb_logging_s3_bucket_policy_json`.<br>See [AWS Documentation](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/enable-access-logging.html#attach-bucket-policy). | `string` | `""` | no |
-| <a name="input_elb_logging_region"></a> [elb\_logging\_region](#input\_elb\_logging\_region) | Full region (e.g. `us-east-1`) where ELB logging is taking place. Required to generate `elb_s3_bucket_policy_json`. | `string` | `""` | no |
+| <a name="input_elb_logging_region"></a> [elb\_logging\_region](#input\_elb\_logging\_region) | Full region (e.g. `us-east-1`) where ELB logging is taking place. Required to generate `elb_s3_bucket_policy_json`.<br>Must be known at "plan" time. | `string` | `""` | no |
 | <a name="input_enabled"></a> [enabled](#input\_enabled) | Set to false to prevent the module from creating any resources | `bool` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | ID element. Usually used for region e.g. 'uw2', 'us-west-2', OR role 'prod', 'staging', 'dev', 'UAT' | `string` | `null` | no |
 | <a name="input_id_length_limit"></a> [id\_length\_limit](#input\_id\_length\_limit) | Limit `id` to this many characters (minimum 6).<br>Set to `0` for unlimited length.<br>Set to `null` for keep the existing setting, which defaults to `0`.<br>Does not affect `id_full`. | `number` | `null` | no |

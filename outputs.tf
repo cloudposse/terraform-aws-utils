@@ -37,7 +37,6 @@ output "elb_logging_s3_bucket_policy_json" {
   value = join("",
     data.aws_iam_policy_document.by_account.*.json,
     data.aws_iam_policy_document.by_region.*.json,
-    data.aws_iam_policy_document.by_outpost.*.json,
   )
 }
 

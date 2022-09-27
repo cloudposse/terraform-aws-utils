@@ -10,6 +10,9 @@ variable "elb_logging_bucket_resource_arn" {
 }
 
 variable "elb_logging_region" {
-  description = "Full region (e.g. `us-east-1`) where ELB logging is taking place. Required to generate `elb_s3_bucket_policy_json`."
+  description = <<-EOT
+    Full region (e.g. `us-east-1`) where ELB logging is taking place. Required to generate `elb_s3_bucket_policy_json`.
+    Must be known at "plan" time.
+    EOT
   default     = ""
 }

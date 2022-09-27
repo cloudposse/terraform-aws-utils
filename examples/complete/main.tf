@@ -2,8 +2,20 @@ provider "aws" {
   region = var.region
 }
 
+data "aws_caller_identity" "current" {}
+
+module "s3_bucket" {
+  source  = "cloudposse/s3-bucket/aws"
+  version = "3.0.0"
+
+  context = module.this.context
+}
+
 module "example" {
   source = "../.."
+
+  elb_logging_bucket_resource_arn = "${module.s3_bucket.bucket_arn}/prefix/AWSLogs/${data.aws_caller_identity.current.account_id}/*}"
+  elb_logging_region              = var.region
 
   context = module.this.context
 }

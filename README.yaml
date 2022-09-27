@@ -110,11 +110,13 @@ introduction: |-
   to allow access logs to be stored in S3.
 
   However, the account IDs have no other purpose, and as AWS expands, it has become more complicated to create
-  the correct bucket policy. The policy for region `me-central-1` is different than the policy for `us-east-1` and
-  both are different from the policy to be used with a local zone. So now this module has a new feature: you
-  provide the full AWS region code for the region where logging is to take place (`elb_logging_region`), and the S3 bucket ARN for
-  where logs are to be stored (`elb_logging_bucket_resource_arn`), and this module will output the appropriate
-  S3 bucket policy (in JSON) to attach to your S3 bucket.
+  the correct bucket policy. The policy for region `me-central-1` is different than the policy for `us-east-1`.
+  So now this module has a new feature: you provide the full AWS region code for the region where logging
+  is to take place (`elb_logging_region`), and the S3 bucket ARN for where logs are to be stored (`elb_logging_bucket_resource_arn`),
+  and this module will output the appropriate S3 bucket policy (in JSON) to attach to your S3 bucket.
+
+  NOTE: The region must be known at Terraform "plan" time. Use a configuration input, such as what you used
+  to configure the Terraform AWS Provider, not an output from some resource or module.
 
   ### Region Display Names
 

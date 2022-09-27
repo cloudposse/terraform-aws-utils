@@ -57,3 +57,11 @@ output "disabled_regions" {
   description = "A list of regions that are disabled in the account"
   value       = module.example.disabled_regions
 }
+
+output "elb_logging_s3_bucket_policy_json" {
+  description = <<-EOT
+    The S3 bucket policy (in JSON) to attach to the S3 bucket to allow Load Balancer logs to be added.
+    Requires `elb_logging_bucket_resource_arn` and `elb_logging_region` inputs.
+    EOT
+  value       = module.example.elb_logging_s3_bucket_policy_json
+}

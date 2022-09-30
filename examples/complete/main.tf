@@ -35,3 +35,8 @@ locals {
   # This should fail with a runtime error if a key is missing.
   ux_check = [for k, v in module.example.region_display_name_map : local.code_maps.to_short[k]]
 }
+
+resource "aws_s3_bucket_policy" "allow_access_logging" {
+  bucket = module.s3_bucket.bucket_id
+  policy = module.example.elb_logging_s3_bucket_policy_json
+}

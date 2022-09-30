@@ -5,7 +5,7 @@ locals {
   )
 
   elb_policy_by_account = local.elb_policy_enabled && try(length(local.elb_logging_account[var.elb_logging_region]), 0) > 0
-  elb_policy_by_region  = local.elb_policy_enabled && ! local.elb_policy_by_account
+  elb_policy_by_region  = local.elb_policy_enabled && !local.elb_policy_by_account
 
   # https://docs.aws.amazon.com/elasticloadbalancing/latest/application/enable-access-logging.html#attach-bucket-policy
   elb_logging_account = {

@@ -1,3 +1,4 @@
 terraform {
-  required_version = ">= 0.13.0"
+  # S3 bucket module requires at least Terraform v1.0
+  required_version = ">= 1.0.0"
 }

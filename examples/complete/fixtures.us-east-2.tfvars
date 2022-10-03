@@ -6,5 +6,5 @@ environment = "ue2"
 
 stage = "test"
 
-name = "example"
+name = "aws-utils"
 

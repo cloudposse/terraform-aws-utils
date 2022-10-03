@@ -72,28 +72,56 @@ introduction: |-
   and Local Zones, codes which are guaranteed to use only digits and lower case letters: no hyphens.
   Conversions to and from official codes and alternative codes are handled via lookup maps.
 
-  - The `short` abbreviations are variable length (generally 4-6 characters, but length limits not guaranteed)
+  - The `short` abbreviations for regions are variable length (generally 4-6 characters, but length limits not guaranteed)
   and strictly algorithmically derived so that people can more easily interpret them. The `short` region
   code abbreviations typically match the prefix of the Availability Zone IDs in that region, but this is
-  not guaranteed.
+  not guaranteed. The `short` abbreviations for local regions are generally of the form AWS uses, with
+  the region prefix and dashes removed.
   - The `fixed` abbreviations are always exactly 3 characters for regions and 4 characters
   for availability zones and local zones, but have some exceptional cases (China, Africa, Asia-Pacific South, US GovCloud)
-  that have non-obvious abbreviations.
+  that have non-obvious abbreviations. If a future new region causes a conflict with an established local zone
+  abbreviation, we may change the local zone abbreviation to keep the region mappings consistent. For example,
+  the local zone `us-east-1-mci-1a` would have been abbreviated `mc1a` had we released it earlier, and that would have
+  conflicted with the new (in 2022) `me-central-1a` which would also be abbreviated `mc1a` in keeping with the general
+  pattern of using the first letter of each of the first 2 parts. We might have chosen to change the abbreviation
+  for `us-east-1-mci-1` so we could use `mc1a` for `me-central-1a`. (As it happens, we added them both at the same
+  time and avoided this collision.) If we were to make such a change, this
+  would be a breaking change for people using the affected local zone, so we recommend using the `short`
+  abbreviations if you are using local zones, which are far less likely to have conflicts in the future.
   - The `identity` "abbreviations" are not abbreviations but are instead the official codes (output equals input,
   which is why it is called "identity"). This map is provided to simplify algorithmic choice of region code
   abbreviation when you want to include a "no abbreviation" option.
 
   We currently support Local Zones but not Wavelength Zones. If we support Wavelength Zones in the future,
-  it is likely that the fixed-length abbreviations for them will be non-intuitive.
+  it is likely that the fixed-length abbreviations for them will be non-intuitive, or we may only provide
+  `short` and not `fixed` abbreviations for them.
 
-  The intention is that existing mappings will never change, and if new regions or zones are created that
-  conflict with existing ones, they will be given non-standard mappings so as not to conflict.
+  The intention is that existing region mappings will never change, and if new regions or zones are created that
+  conflict with existing ones, they will be given non-standard mappings so as not to conflict. However, as
+  stated above, we may choose to change a local region abbreviation if it conflicts with the obvious abbreviation
+  for a newly created region. We have picked abbreviations for local zones with avoiding such future
+  collisions in mind, but we cannot predict the future. (Both `bos` and `den` fit the pattern for region abbreviations,
+  but we do not envision a future `bo-south-1` or `de-north-1` region.)
 
-  ### ELB Logging Account IDs
+  ### ELB Logging
 
   This module provides Elastic Load Balancing Account IDs per region to be used in
   configuring [S3 Bucket Permissions](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html#access-logging-bucket-permissions)
   to allow access logs to be stored in S3.
+
+  However, the account IDs have no other purpose, and as AWS expands, it has become more complicated to create
+  the correct bucket policy. The policy for region `me-central-1` is different than the policy for `us-east-1`.
+  So now this module has a new feature: you provide the full AWS region code for the region where logging
+  is to take place (`elb_logging_region`), and the S3 bucket ARN for where logs are to be stored (`elb_logging_bucket_resource_arn`),
+  and this module will output the appropriate S3 bucket policy (in JSON) to attach to your S3 bucket.
+
+  NOTE: The region must be known at Terraform "plan" time. Use a configuration input, such as what you used
+  to configure the Terraform AWS Provider, not an output from some resource or module.
+
+  ### Region Display Names
+
+  There is no AWS API that reliably returns the human-friendly display name (e.g. "Europe (Stockholm)") given
+  the API-friendly region name. So this module provides `region_display_name_map` to implement this functionality.
 
   ### Enabled and Disabled Regions
 

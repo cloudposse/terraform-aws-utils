@@ -17,9 +17,27 @@ output "region_az_alt_code_maps" {
   }
 }
 
+output "region_display_name_map" {
+  description = <<-EOT
+    Map of full region names to user-friendly display names (e.g. "eu-west-3" = "Europe (Paris)").
+    EOT
+  value       = local.to_display_name
+}
+
 output "elb_logging_account" {
   description = "Map of full region to ELB logging account"
   value       = local.elb_logging_account
+}
+
+output "elb_logging_s3_bucket_policy_json" {
+  description = <<-EOT
+    The S3 bucket policy (in JSON) to attach to the S3 bucket to allow Load Balancer logs to be added.
+    Requires `elb_logging_bucket_resource_arn` and `elb_logging_region` inputs.
+    EOT
+  value = join("",
+    data.aws_iam_policy_document.by_account.*.json,
+    data.aws_iam_policy_document.by_region.*.json,
+  )
 }
 
 output "enabled_regions" {

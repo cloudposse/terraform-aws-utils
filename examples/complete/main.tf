@@ -6,7 +6,7 @@ data "aws_caller_identity" "current" {}
 
 module "s3_bucket" {
   source  = "cloudposse/s3-bucket/aws"
-  version = "3.0.0"
+  version = "3.1.0"
 
   context = module.this.context
 }
@@ -37,6 +37,8 @@ locals {
 }
 
 resource "aws_s3_bucket_policy" "allow_access_logging" {
+  count = module.this.enabled ? 1 : 0
+
   bucket = module.s3_bucket.bucket_id
   policy = module.example.elb_logging_s3_bucket_policy_json
 }

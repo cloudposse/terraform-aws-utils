@@ -50,3 +50,8 @@ output "disabled_regions" {
   value       = data.aws_regions.not_opted_in.names
 }
 
+output "all_regions" {
+  description = "A list of all regions regardless of availability to the account"
+  value       = data.aws_regions.complete.names
+}
+

@@ -31,13 +31,17 @@ locals {
     "ap-northeast-2" = "Asia Pacific (Seoul)"
     "ap-northeast-3" = "Asia Pacific (Osaka)"
     "ap-south-1"     = "Asia Pacific (Mumbai)"
+    "ap-south-2"     = "Asia Pacific (Hyderabad)"
     "ap-southeast-1" = "Asia Pacific (Singapore)"
     "ap-southeast-2" = "Asia Pacific (Sydney)"
     "ap-southeast-3" = "Asia Pacific (Jakarta)"
+    "ap-southeast-4" = "Asia Pacific (Melbourne)"
     "ca-central-1"   = "Canada (Central)"
     "eu-central-1"   = "Europe (Frankfurt)"
+    "eu-central-2"   = "Europe (Zurich)"
     "eu-north-1"     = "Europe (Stockholm)"
     "eu-south-1"     = "Europe (Milan)"
+    "eu-south-2"     = "Europe (Milan)"
     "eu-west-1"      = "Europe (Ireland)"
     "eu-west-2"      = "Europe (London)"
     "eu-west-3"      = "Europe (Paris)"
@@ -89,7 +93,14 @@ locals {
     "ap-northeast-3a" = "an3a"
     "ap-northeast-3b" = "an3b"
     "ap-northeast-3c" = "an3c"
+    "ap-northeast-3d" = "an3d"
+    "ap-northeast-3e" = "an3e"
+    "ap-northeast-3f" = "an3f"
+    "ap-northeast-3g" = "an3g"
+    "ap-northeast-3h" = "an3h"
 
+    # Abbreviation for ap-south-1 would be "as1" but that is already used for ap-southeast-1
+    # So we use "as0" for ap-south-1
     "ap-south-1"  = "as0"
     "ap-south-1a" = "as0a"
     "ap-south-1b" = "as0b"
@@ -99,6 +110,20 @@ locals {
     "ap-south-1f" = "as0f"
     "ap-south-1g" = "as0g"
     "ap-south-1h" = "as0h"
+
+    # Abbreviation for ap-south-2 would be "as2" but that is already used for ap-southeast-2
+    # Using a different number as we did for ap-south-1 in not as extensible as using a different letter,
+    # which allows us to leaves the region number consistent.
+    # So we use "ar2" (r is letter before s) for ap-south-2
+    "ap-south-2"  = "ar2"
+    "ap-south-2a" = "ar2a"
+    "ap-south-2b" = "ar2b"
+    "ap-south-2c" = "ar2c"
+    "ap-south-2d" = "ar2d"
+    "ap-south-2e" = "ar2e"
+    "ap-south-2f" = "ar2f"
+    "ap-south-2g" = "ar2g"
+    "ap-south-2h" = "ar2h"
 
     "ap-southeast-1"  = "as1"
     "ap-southeast-1a" = "as1a"
@@ -130,6 +155,16 @@ locals {
     "ap-southeast-3g" = "as3g"
     "ap-southeast-3h" = "as3h"
 
+    "ap-southeast-4"  = "as4"
+    "ap-southeast-4a" = "as4a"
+    "ap-southeast-4b" = "as4b"
+    "ap-southeast-4c" = "as4c"
+    "ap-southeast-4d" = "as4d"
+    "ap-southeast-4e" = "as4e"
+    "ap-southeast-4f" = "as4f"
+    "ap-southeast-4g" = "as4g"
+    "ap-southeast-4h" = "as4h"
+
     "ca-central-1"  = "cc1"
     "ca-central-1a" = "cc1a"
     "ca-central-1b" = "cc1b"
@@ -150,6 +185,16 @@ locals {
     "eu-central-1g" = "ec1g"
     "eu-central-1h" = "ec1h"
 
+    "eu-central-2"  = "ec2"
+    "eu-central-2a" = "ec2a"
+    "eu-central-2b" = "ec2b"
+    "eu-central-2c" = "ec2c"
+    "eu-central-2d" = "ec2d"
+    "eu-central-2e" = "ec2e"
+    "eu-central-2f" = "ec2f"
+    "eu-central-2g" = "ec2g"
+    "eu-central-2h" = "ec2h"
+
     "eu-north-1"  = "en1"
     "eu-north-1a" = "en1a"
     "eu-north-1b" = "en1b"
@@ -169,6 +214,16 @@ locals {
     "eu-south-1f" = "es1f"
     "eu-south-1g" = "es1g"
     "eu-south-1h" = "es1h"
+
+    "eu-south-2"  = "es2"
+    "eu-south-2a" = "es2a"
+    "eu-south-2b" = "es2b"
+    "eu-south-2c" = "es2c"
+    "eu-south-2d" = "es2d"
+    "eu-south-2e" = "es2e"
+    "eu-south-2f" = "es2f"
+    "eu-south-2g" = "es2g"
+    "eu-south-2h" = "es2h"
 
     "eu-west-1"  = "ew1"
     "eu-west-1a" = "ew1a"
@@ -399,6 +454,11 @@ locals {
     "ap-northeast-3a" = "apne3a"
     "ap-northeast-3b" = "apne3b"
     "ap-northeast-3c" = "apne3c"
+    "ap-northeast-3d" = "apne3d"
+    "ap-northeast-3e" = "apne3e"
+    "ap-northeast-3f" = "apne3f"
+    "ap-northeast-3g" = "apne3g"
+    "ap-northeast-3h" = "apne3h"
 
     "ap-south-1"  = "aps1"
     "ap-south-1a" = "aps1a"
@@ -409,6 +469,16 @@ locals {
     "ap-south-1f" = "aps1f"
     "ap-south-1g" = "aps1g"
     "ap-south-1h" = "aps1h"
+
+    "ap-south-2"  = "aps2"
+    "ap-south-2a" = "aps2a"
+    "ap-south-2b" = "aps2b"
+    "ap-south-2c" = "aps2c"
+    "ap-south-2d" = "aps2d"
+    "ap-south-2e" = "aps2e"
+    "ap-south-2f" = "aps2f"
+    "ap-south-2g" = "aps2g"
+    "ap-south-2h" = "aps2h"
 
     "ap-southeast-1"  = "apse1"
     "ap-southeast-1a" = "apse1a"
@@ -440,6 +510,16 @@ locals {
     "ap-southeast-3g" = "apse3g"
     "ap-southeast-3h" = "apse3h"
 
+    "ap-southeast-4"  = "apse4"
+    "ap-southeast-4a" = "apse4a"
+    "ap-southeast-4b" = "apse4b"
+    "ap-southeast-4c" = "apse4c"
+    "ap-southeast-4d" = "apse4d"
+    "ap-southeast-4e" = "apse4e"
+    "ap-southeast-4f" = "apse4f"
+    "ap-southeast-4g" = "apse4g"
+    "ap-southeast-4h" = "apse4h"
+
     "ca-central-1"  = "cac1"
     "ca-central-1a" = "cac1a"
     "ca-central-1b" = "cac1b"
@@ -460,6 +540,16 @@ locals {
     "eu-central-1g" = "euc1g"
     "eu-central-1h" = "euc1h"
 
+    "eu-central-2"  = "euc2"
+    "eu-central-2a" = "euc2a"
+    "eu-central-2b" = "euc2b"
+    "eu-central-2c" = "euc2c"
+    "eu-central-2d" = "euc2d"
+    "eu-central-2e" = "euc2e"
+    "eu-central-2f" = "euc2f"
+    "eu-central-2g" = "euc2g"
+    "eu-central-2h" = "euc2h"
+
     "eu-north-1"  = "eun1"
     "eu-north-1a" = "eun1a"
     "eu-north-1b" = "eun1b"
@@ -479,6 +569,16 @@ locals {
     "eu-south-1f" = "eus1f"
     "eu-south-1g" = "eus1g"
     "eu-south-1h" = "eus1h"
+
+    "eu-south-2"  = "eus2"
+    "eu-south-2a" = "eus2a"
+    "eu-south-2b" = "eus2b"
+    "eu-south-2c" = "eus2c"
+    "eu-south-2d" = "eus2d"
+    "eu-south-2e" = "eus2e"
+    "eu-south-2f" = "eus2f"
+    "eu-south-2g" = "eus2g"
+    "eu-south-2h" = "eus2h"
 
     "eu-west-1"  = "euw1"
     "eu-west-1a" = "euw1a"
@@ -697,4 +797,8 @@ data "aws_regions" "not_opted_in" {
     name   = "opt-in-status"
     values = ["not-opted-in"]
   }
+}
+
+data "aws_regions" "complete" {
+  all_regions = true
 }

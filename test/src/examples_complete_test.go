@@ -53,6 +53,17 @@ func TestExamplesComplete(t *testing.T) {
 	fixedRoundTrip := terraform.Output(t, terraformOptions, "fixed_round_trip")
 	shortRoundTrip := terraform.Output(t, terraformOptions, "short_round_trip")
 	enabledRegions := terraform.OutputList(t, terraformOptions, "enabled_regions")
+	allRegions := terraform.OutputList(t, terraformOptions, "all_regions")
+	displayNames := terraform.OutputMap(t, terraformOptions, "region_display_name_map")
+	abbreviationMaps := terraform.OutputMapOfObjects(t, terraformOptions, "region_az_alt_code_maps")
+
+	for _, reg := range allRegions {
+		for _, k := range []string{"to_fixed", "to_short", "identity"} {
+			assert.Contains(t, abbreviationMaps[k], reg, "Abbreviation map "+k+" is missing entry for region "+reg)
+		}
+		assert.Contains(t, displayNames, reg, "Display Names map is missing entry for region "+reg)
+	}
+
 	//disabledRegions := terraform.OutputList(t, terraformOptions, "disabled_regions")
 	idSize := terraform.Output(t, terraformOptions, "identity_size")
 
@@ -70,7 +81,6 @@ func TestExamplesComplete(t *testing.T) {
 	assert.Equal(t, idSize, terraform.Output(t, terraformOptions, "to_fixed_size"), "Transformation maps are different sizes")
 	assert.Equal(t, idSize, terraform.Output(t, terraformOptions, "from_short_size"), "Transformation maps are different sizes")
 	assert.Equal(t, idSize, terraform.Output(t, terraformOptions, "from_fixed_size"), "Transformation maps are different sizes")
-
 }
 
 func TestExamplesCompleteDisabled(t *testing.T) {

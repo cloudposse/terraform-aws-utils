@@ -24,6 +24,7 @@
 |------|------|
 | [aws_iam_policy_document.by_account](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.by_region](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_regions.complete](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/regions) | data source |
 | [aws_regions.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/regions) | data source |
 | [aws_regions.not_opted_in](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/regions) | data source |
 | [aws_regions.opted_in](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/regions) | data source |
@@ -57,6 +58,7 @@
 
 | Name | Description |
 |------|-------------|
+| <a name="output_all_regions"></a> [all\_regions](#output\_all\_regions) | A list of all regions regardless of availability to the account |
 | <a name="output_disabled_regions"></a> [disabled\_regions](#output\_disabled\_regions) | A list of regions that are disabled in the account |
 | <a name="output_elb_logging_account"></a> [elb\_logging\_account](#output\_elb\_logging\_account) | Map of full region to ELB logging account |
 | <a name="output_elb_logging_s3_bucket_policy_json"></a> [elb\_logging\_s3\_bucket\_policy\_json](#output\_elb\_logging\_s3\_bucket\_policy\_json) | The S3 bucket policy (in JSON) to attach to the S3 bucket to allow Load Balancer logs to be added.<br>Requires `elb_logging_bucket_resource_arn` and `elb_logging_region` inputs. |

@@ -36,6 +36,7 @@ locals {
     "ap-southeast-3" = "Asia Pacific (Jakarta)"
     "ca-central-1"   = "Canada (Central)"
     "eu-central-1"   = "Europe (Frankfurt)"
+    "eu-central-2"   = "Europe (Zurich)"
     "eu-north-1"     = "Europe (Stockholm)"
     "eu-south-1"     = "Europe (Milan)"
     "eu-west-1"      = "Europe (Ireland)"
@@ -149,6 +150,11 @@ locals {
     "eu-central-1f" = "ec1f"
     "eu-central-1g" = "ec1g"
     "eu-central-1h" = "ec1h"
+
+    "eu-central-2"  = "ec2"
+    "eu-central-2a" = "ec2a"
+    "eu-central-2b" = "ec2b"
+    "eu-central-2c" = "ec2c"
 
     "eu-north-1"  = "en1"
     "eu-north-1a" = "en1a"
@@ -459,6 +465,11 @@ locals {
     "eu-central-1f" = "euc1f"
     "eu-central-1g" = "euc1g"
     "eu-central-1h" = "euc1h"
+
+    "eu-central-2"  = "euc2"
+    "eu-central-2a" = "euc2a"
+    "eu-central-2b" = "euc2b"
+    "eu-central-2c" = "euc2c"
 
     "eu-north-1"  = "eun1"
     "eu-north-1a" = "eun1a"

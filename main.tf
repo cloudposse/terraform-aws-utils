@@ -286,7 +286,7 @@ locals {
     "us-gov-west-1g" = "gw1g"
     "us-gov-west-1h" = "gw1h"
 
-    "il-central-1"  = "ic1"
+    "il-central-1"   = "ic1"
     "il-central-1a"  = "ic1a"
     "il-central-1b"  = "ic1b"
     "il-central-1c"  = "ic1c"

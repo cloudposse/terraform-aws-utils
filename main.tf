@@ -286,10 +286,10 @@ locals {
     "us-gov-west-1g" = "gw1g"
     "us-gov-west-1h" = "gw1h"
 
-    "il-central-1"   = "ic1"
-    "il-central-1a"  = "ic1a"
-    "il-central-1b"  = "ic1b"
-    "il-central-1c"  = "ic1c"
+    "il-central-1"  = "ic1"
+    "il-central-1a" = "ic1a"
+    "il-central-1b" = "ic1b"
+    "il-central-1c" = "ic1c"
 
     "me-central-1"  = "mc1"
     "me-central-1a" = "mc1a"
@@ -646,10 +646,10 @@ locals {
     "us-gov-west-1g" = "usgw1g"
     "us-gov-west-1h" = "usgw1h"
 
-    "il-central-1"   = "ilc1"
-    "il-central-1a"  = "ilc1a"
-    "il-central-1b"  = "ilc1b"
-    "il-central-1c"  = "ilc1c"
+    "il-central-1"  = "ilc1"
+    "il-central-1a" = "ilc1a"
+    "il-central-1b" = "ilc1b"
+    "il-central-1c" = "ilc1c"
 
     "me-central-1"  = "mec1"
     "me-central-1a" = "mec1a"

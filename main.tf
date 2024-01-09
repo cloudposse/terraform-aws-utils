@@ -37,6 +37,7 @@ locals {
     "ap-southeast-3" = "Asia Pacific (Jakarta)"
     "ap-southeast-4" = "Asia Pacific (Melbourne)"
     "ca-central-1"   = "Canada (Central)"
+    "ca-west-1"      = "Canada West (Calgary)"
     "eu-central-1"   = "Europe (Frankfurt)"
     "eu-central-2"   = "Europe (Zurich)"
     "eu-north-1"     = "Europe (Stockholm)"
@@ -45,6 +46,7 @@ locals {
     "eu-west-1"      = "Europe (Ireland)"
     "eu-west-2"      = "Europe (London)"
     "eu-west-3"      = "Europe (Paris)"
+    "il-central-1"   = "Israel (Tel Aviv)"
     "me-central-1"   = "Middle East (UAE)"
     "me-south-1"     = "Middle East (Bahrain)"
     "sa-east-1"      = "South America (Sao Paulo)"
@@ -175,6 +177,11 @@ locals {
     "ca-central-1g" = "cc1g"
     "ca-central-1h" = "cc1h"
 
+    "ca-west-1"  = "cw1"
+    "ca-west-1a" = "cw1a"
+    "ca-west-1b" = "cw1b"
+    "ca-west-1c" = "cw1c"
+
     "eu-central-1"  = "ec1"
     "eu-central-1a" = "ec1a"
     "eu-central-1b" = "ec1b"
@@ -284,6 +291,11 @@ locals {
     "us-gov-west-1f" = "gw1f"
     "us-gov-west-1g" = "gw1g"
     "us-gov-west-1h" = "gw1h"
+
+    "il-central-1"  = "ic1"
+    "il-central-1a" = "ic1a"
+    "il-central-1b" = "ic1b"
+    "il-central-1c" = "ic1c"
 
     "me-central-1"  = "mc1"
     "me-central-1a" = "mc1a"
@@ -530,6 +542,11 @@ locals {
     "ca-central-1g" = "cac1g"
     "ca-central-1h" = "cac1h"
 
+    "ca-west-1"  = "caw1"
+    "ca-west-1a" = "caw1a"
+    "ca-west-1b" = "caw1b"
+    "ca-west-1c" = "caw1c"
+
     "eu-central-1"  = "euc1"
     "eu-central-1a" = "euc1a"
     "eu-central-1b" = "euc1b"
@@ -639,6 +656,11 @@ locals {
     "us-gov-west-1f" = "usgw1f"
     "us-gov-west-1g" = "usgw1g"
     "us-gov-west-1h" = "usgw1h"
+
+    "il-central-1"  = "ilc1"
+    "il-central-1a" = "ilc1a"
+    "il-central-1b" = "ilc1b"
+    "il-central-1c" = "ilc1c"
 
     "me-central-1"  = "mec1"
     "me-central-1a" = "mec1a"

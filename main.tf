@@ -37,6 +37,7 @@ locals {
     "ap-southeast-3" = "Asia Pacific (Jakarta)"
     "ap-southeast-4" = "Asia Pacific (Melbourne)"
     "ca-central-1"   = "Canada (Central)"
+    "ca-west-1"      = "Canada West (Calgary)"
     "eu-central-1"   = "Europe (Frankfurt)"
     "eu-central-2"   = "Europe (Zurich)"
     "eu-north-1"     = "Europe (Stockholm)"
@@ -175,6 +176,11 @@ locals {
     "ca-central-1f" = "cc1f"
     "ca-central-1g" = "cc1g"
     "ca-central-1h" = "cc1h"
+
+    "ca-west-1"  = "cw1"
+    "ca-west-1a" = "cw1a"
+    "ca-west-1b" = "cw1b"
+    "ca-west-1c" = "cw1c"
 
     "eu-central-1"  = "ec1"
     "eu-central-1a" = "ec1a"
@@ -535,6 +541,11 @@ locals {
     "ca-central-1f" = "cac1f"
     "ca-central-1g" = "cac1g"
     "ca-central-1h" = "cac1h"
+
+    "ca-west-1"  = "caw1"
+    "ca-west-1a" = "caw1a"
+    "ca-west-1b" = "caw1b"
+    "ca-west-1c" = "caw1c"
 
     "eu-central-1"  = "euc1"
     "eu-central-1a" = "euc1a"

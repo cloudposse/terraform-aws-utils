@@ -6,7 +6,7 @@ data "aws_caller_identity" "current" {}
 
 module "s3_bucket" {
   source  = "cloudposse/s3-bucket/aws"
-  version = "3.1.0"
+  version = "3.1.3"
 
   context = module.this.context
 }

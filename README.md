@@ -3,7 +3,7 @@
 <!-- markdownlint-disable -->
 <a href="https://cpco.io/homepage"><img src="https://github.com/cloudposse/terraform-aws-utils/blob/main/.github/banner.png?raw=true" alt="Project Banner"/></a><br/>
     <p align="right">
-<a href="https://github.com/cloudposse/terraform-aws-utils/releases/latest"><img src="https://img.shields.io/github/release/cloudposse/terraform-aws-utils.svg?style=for-the-badge" alt="Latest Release"/></a><a href="https://github.com/cloudposse/terraform-aws-utils/commits"><img src="https://img.shields.io/github/last-commit/cloudposse/terraform-aws-utils.svg?style=for-the-badge" alt="Last Updated"/></a><a href="https://slack.cloudposse.com"><img src="https://slack.cloudposse.com/for-the-badge.svg" alt="Slack Community"/></a></p>
+<a href="https://github.com/cloudposse/terraform-aws-utils/releases/latest"><img src="https://img.shields.io/github/release/cloudposse/terraform-aws-utils.svg?style=for-the-badge" alt="Latest Release"/></a><a href="https://github.com/cloudposse/terraform-aws-utils/commits"><img src="https://img.shields.io/github/last-commit/cloudposse/terraform-aws-utils.svg?style=for-the-badge" alt="Last Updated"/></a><a href="https://cloudposse.com/slack"><img src="https://slack.cloudposse.com/for-the-badge.svg" alt="Slack Community"/></a></p>
 <!-- markdownlint-restore -->
 
 <!--
@@ -198,18 +198,6 @@ Here is an example of using this module:
 
 
 <!-- markdownlint-disable -->
-## Makefile Targets
-```text
-Available targets:
-
-  help                                Help screen
-  help/all                            Display help for all targets
-  help/short                          This help short screen
-  lint                                Lint terraform code
-
-```
-<!-- markdownlint-restore -->
-<!-- markdownlint-disable -->
 ## Requirements
 
 | Name | Version |
@@ -277,6 +265,11 @@ Available targets:
 | <a name="output_region_az_alt_code_maps"></a> [region\_az\_alt\_code\_maps](#output\_region\_az\_alt\_code\_maps) | Collection of maps converting between official AWS Region, Availability Zone, and Local Zone codes and shorter unofficial codes using only lower case letters and digits. Inspired for use in naming and tagging so that region or AZ code will be 1 semantic unit.<br/><br/>- `to_fixed` = Map of regions to 3-character codes and Availability Zones to 4-character codes<br/>- `to_short` = Map of regions and Availability Zones to compact (usually 4-6 characters) codes<br/>- `from_fixed` = Map of `fixed` codes back to full region or Availability Zone codes<br/>- `from_short` = Map of `short` codes back to full region or Availability Zone codes<br/>- `identity` = Identity map of full region and Availability Zone codes back to themselves |
 | <a name="output_region_display_name_map"></a> [region\_display\_name\_map](#output\_region\_display\_name\_map) | Map of full region names to user-friendly display names (e.g. "eu-west-3" = "Europe (Paris)"). |
 <!-- markdownlint-restore -->
+
+
+
+
+
 
 
 ## Related Projects
